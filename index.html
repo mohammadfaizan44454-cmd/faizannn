@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiRakshak AI — AI-Powered Climate & Crop Guardian</title>
+  <meta name="description" content="Real-time AI decision-support system for climate-resilient farming. Instant crop disease detection, smart irrigation advisor, climate risk radar, and voice guidance in local languages.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="brand" id="brand-home-link">
+        <div class="brand-icon">🌾</div>
+        <div class="brand-text">
+          <h1>KrishiRakshak AI</h1>
+          <span>Climate & Crop Guardian</span>
+        </div>
+      </div>
+
+      <nav class="nav-actions">
+        <div class="nav-tabs">
+          <button class="nav-tab active" data-target="view-home">🏠 Home</button>
+          <button class="nav-tab" data-target="view-dashboard">🌱 My Farm</button>
+          <button class="nav-tab" data-target="view-scanner">📷 Scan Crop</button>
+          <button class="nav-tab" data-target="view-climate">🌦️ Climate Radar</button>
+          <button class="nav-tab" data-target="view-assistant">🎤 Voice & AI</button>
+          <button class="nav-tab" data-target="view-community">🗺️ Admin & Map</button>
+        </div>
+
+        <div class="top-controls">
+          <select id="lang-select" class="select-custom" aria-label="Select Language">
+            <option value="en">🌐 English</option>
+            <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+            <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+            <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+            <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
+            <option value="mr">🇮🇳 मराठी (Marathi)</option>
+            <option value="bn">🇮🇳 বাংলা (Bengali)</option>
+          </select>
+
+          <button id="btn-low-literacy-toggle" class="btn btn-secondary btn-sm" title="Toggle Large Text & Audio First Mode">
+            👁️ Simple Mode
+          </button>
+
+          <button id="btn-emergency-toggle" class="btn btn-emergency btn-sm" title="Emergency Weather Alert Mode">
+            🚨 Emergency
+          </button>
+
+          <button id="btn-start-demo" class="btn btn-demo btn-sm">
+            ⚡ 2-Min Demo Mode
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Emergency Mode Alert Banner (Hidden by default) -->
+    <div id="emergency-banner" class="emergency-banner" style="display: none; background: #dc2626; color: #fff; padding: 1rem 1.5rem; border-bottom: 2px solid #fca5a5;">
+      <div style="max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 2rem;">🚨</span>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff;">EXTREME WEATHER EMERGENCY ACTIVE: HEAVY RAINFALL & FLASH FLOOD RISK</h3>
+            <p style="font-size: 0.9rem; color: #fee2e2;">Immediate Field Survival Instructions: Clear drainage channels, protect harvested produce, delay all irrigation.</p>
+          </div>
+        </div>
+        <button id="btn-audio-emergency" class="btn btn-secondary btn-sm" style="background: #fff; color: #991b1b; font-weight: 800;">
+          🔊 Listen Emergency Voice
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- ===================================================================
+           VIEW 1: HOMEPAGE / LANDING SECTION
+           =================================================================== -->
+      <section id="view-home" class="view-section active">
+        <div class="hero-section">
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span>🤖 Next-Gen AgTech AI</span>
+              <span style="color: rgba(255,255,255,0.4);">•</span>
+              <span>Backed by Global Climate Science</span>
+            </div>
+            
+            <h1 class="hero-title">
+              Don't just check the weather.<br>
+              Know what it means for your crop.
+            </h1>
+
+            <p class="hero-subtitle">
+              <strong>KrishiRakshak AI</strong> is an intelligent digital companion for farmers. 
+              Upload one photo, share your location, or speak in your native language to receive instant, 
+              field-specific action plans that protect your yield and save water.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-demo" id="hero-btn-demo">
+                ⚡ Launch Hackathon Demo Flow
+              </button>
+              <button class="btn btn-primary" id="hero-btn-scan">
+                📷 Scan Leaf Disease Now
+              </button>
+              <button class="btn btn-secondary" id="hero-btn-farm">
+                🌱 Go to My Farm Today
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-demo-card">
+            <div class="card-header" style="margin-bottom: 0.5rem;">
+              <span class="badge badge-safe">⚡ Live AI Signal Pipeline</span>
+              <span style="font-size: 0.8rem; color: var(--primary-300);">Guntur, Andhra Pradesh</span>
+            </div>
+
+            <div class="demo-signal-flow">
+              <div class="signal-step">
+                <div class="signal-icon">🌧️</div>
+                <div class="signal-text">
+                  <strong>Rain expected in 8 hours</strong>
+                  <span>84% Humidity • 36°C Ambient Temp</span>
+                </div>
+              </div>
+
+              <div class="signal-step" style="border-left: 4px solid var(--accent-sky);">
+                <div class="signal-icon">💧</div>
+                <div class="signal-text">
+                  <strong>Avoid Irrigation Today</strong>
+                  <span>Saves ~14,000 Liters water & prevents root rot</span>
+                </div>
+              </div>
+
+              <div class="signal-step" style="border-left: 4px solid var(--accent-amber);">
+                <div class="signal-icon">🦠</div>
+                <div class="signal-text">
+                  <strong>High Fungal-Risk Conditions Tomorrow</strong>
+                  <span>Favorable for Early Blight on Tomato crop</span>
+                </div>
+              </div>
+
+              <div class="signal-step" style="border-left: 4px solid var(--primary-400);">
+                <div class="signal-icon">💡</div>
+                <div class="signal-text">
+                  <strong>Action Plan: Inspect leaves & clear drainage</strong>
+                  <span>Perform early spot check before rain onset</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features Matrix -->
+        <div class="features-grid">
+          <div class="card feature-card">
+            <div class="feature-icon-wrapper">📷</div>
+            <h3>Scan My Crop</h3>
+            <p style="font-size: 0.9rem; color: var(--text-sub);">AI computer vision detects crop diseases from leaf photos with 82%+ confidence and returns step-by-step field guidance.</p>
+          </div>
+
+          <div class="card feature-card">
+            <div class="feature-icon-wrapper">💧</div>
+            <h3>Smart Irrigation Advisor</h3>
+            <p style="font-size: 0.9rem; color: var(--text-sub);">Calculates exact water needs based on soil moisture index, rain forecasts, and crop growth stage to eliminate water waste.</p>
+          </div>
+
+          <div class="card feature-card">
+            <div class="feature-icon-wrapper">🌦️</div>
+            <h3>Climate Risk Radar</h3>
+            <p style="font-size: 0.9rem; color: var(--text-sub);">Continuous risk monitoring for heatwaves, flash floods, droughts, and high wind velocity with proactive 48-hour alerts.</p>
+          </div>
+
+          <div class="card feature-card">
+            <div class="feature-icon-wrapper">🎤</div>
+            <h3>Voice Assistant in 8 Languages</h3>
+            <p style="font-size: 0.9rem; color: var(--text-sub);">Speak or listen in Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Bengali, or English. Designed for low literacy.</p>
+          </div>
+        </div>
+
+        <!-- Impact Metrics Bar -->
+        <div class="impact-bar">
+          <div class="metric-item">
+            <div class="metric-value" id="impact-water-saved">14,200 L</div>
+            <div class="metric-label">Water Saved per Acre</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value" id="impact-loss-prevented">₹18,500</div>
+            <div class="metric-label">Estimated Loss Avoided</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value" id="impact-warning-lead">36 Hours</div>
+            <div class="metric-label">Early Warning Lead Time</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value" id="impact-resilience-score">78 / 100</div>
+            <div class="metric-label">Avg Farm Resilience</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===================================================================
+           VIEW 2: FARMER ONBOARDING WIZARD
+           =================================================================== -->
+      <section id="view-onboarding" class="view-section">
+        <div class="card onboarding-wizard">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">🌱</span>
+              <h2>Set Up Your Farm Profile</h2>
+            </div>
+            <span class="badge badge-safe">Step <span id="onboard-step-num">1</span> of 3</span>
+          </div>
+
+          <div class="wizard-steps-indicator">
+            <div class="wizard-step-node active" id="node-step-1">1</div>
+            <div class="wizard-step-node" id="node-step-2">2</div>
+            <div class="wizard-step-node" id="node-step-3">3</div>
+          </div>
+
+          <!-- Step 1: Basic Telemetry -->
+          <div id="onboard-step-1-content">
+            <div class="form-group">
+              <label class="form-label" for="input-farmer-name">Farmer Name</label>
+              <input type="text" id="input-farmer-name" class="form-input" value="Ravi Kumar" placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-farmer-location">Location / Village</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="input-farmer-location" class="form-input" value="Guntur, Andhra Pradesh" placeholder="Village or City">
+                <button type="button" id="btn-detect-gps" class="btn btn-secondary" style="white-space: nowrap;">
+                  📍 Auto GPS
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-farm-acreage">Farm Size (Acreage)</label>
+              <input type="number" id="input-farm-acreage" class="form-input" value="2.5" step="0.5" placeholder="e.g. 2.5 acres">
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+              <button class="btn btn-primary" id="btn-step1-next">Next: Select Crop ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Visual Crop Selection -->
+          <div id="onboard-step-2-content" style="display: none;">
+            <label class="form-label">Select Your Primary Crop</label>
+            
+            <div class="crop-selector-grid">
+              <div class="crop-card-option selected" data-crop="Tomato" data-crop-icon="🍅">
+                <span class="icon">🍅</span>
+                <span class="name">Tomato</span>
+                <span class="local-name">టమోటా / टमाटर</span>
+              </div>
+
+              <div class="crop-card-option" data-crop="Rice" data-crop-icon="🌾">
+                <span class="icon">🌾</span>
+                <span class="name">Rice (Paddy)</span>
+                <span class="local-name">వరి / धान</span>
+              </div>
+
+              <div class="crop-card-option" data-crop="Maize" data-crop-icon="🌽">
+                <span class="icon">🌽</span>
+                <span class="name">Maize</span>
+                <span class="local-name">మొక్కజొన్న / मक्का</span>
+              </div>
+
+              <div class="crop-card-option" data-crop="Chilli" data-crop-icon="🌶️">
+                <span class="icon">🌶️</span>
+                <span class="name">Chilli</span>
+                <span class="local-name">మిర్చి / मिर्च</span>
+              </div>
+
+              <div class="crop-card-option" data-crop="Cotton" data-crop-icon="🫘">
+                <span class="icon">🫘</span>
+                <span class="name">Cotton</span>
+                <span class="local-name">ప్రత్తి / कपास</span>
+              </div>
+
+              <div class="crop-card-option" data-crop="Potato" data-crop-icon="🥔">
+                <span class="icon">🥔</span>
+                <span class="name">Potato</span>
+                <span class="local-name">బంగాళాదుంప / आलू</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+              <button class="btn btn-secondary" id="btn-step2-prev">⬅ Back</button>
+              <button class="btn btn-primary" id="btn-step2-next">Next: Crop Stage ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Growth Stage & Soil -->
+          <div id="onboard-step-3-content" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="select-crop-stage">Current Crop Growth Stage</label>
+              <select id="select-crop-stage" class="form-select">
+                <option value="Vegetative">🌱 Vegetative Stage (Leafing)</option>
+                <option value="Flowering" selected>🌸 Flowering Stage</option>
+                <option value="Fruiting">🍅 Fruiting / Pod Development</option>
+                <option value="Harvest">🌾 Harvest Ready</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="select-irrigation-type">Irrigation Method</label>
+              <select id="select-irrigation-type" class="form-select">
+                <option value="Drip">💧 Drip Irrigation</option>
+                <option value="Canal" selected>🌊 Canal / Flood Irrigation</option>
+                <option value="Rainfed">🌧️ Rainfed Only</option>
+                <option value="Sprinkler">🚿 Sprinkler System</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="select-soil-type">Soil Type (If Known)</label>
+              <select id="select-soil-type" class="form-select">
+                <option value="Red Loamy" selected>🧱 Red Loamy Soil</option>
+                <option value="Black Cotton">🌑 Black Cotton Soil</option>
+                <option value="Sandy">🏖️ Sandy Soil</option>
+                <option value="Alluvial">🌊 Alluvial Soil</option>
+                <option value="Unknown">❓ I don't know</option>
+              </select>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+              <button class="btn btn-secondary" id="btn-step3-prev">⬅ Back</button>
+              <button class="btn btn-primary" id="btn-finish-onboarding">🚀 Launch My Farm Command Center</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===================================================================
+           VIEW 3: MAIN FARM COMMAND CENTER ("MY FARM TODAY")
+           =================================================================== -->
+      <section id="view-dashboard" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 2rem; font-weight: 800;">My Farm Today 🌾</h1>
+            <p style="color: var(--primary-300); font-size: 0.95rem;">
+              Farmer: <strong id="dash-farmer-name" style="color: #fff;">Ravi Kumar</strong> • 
+              Field: <strong id="dash-farmer-location" style="color: #fff;">Guntur, AP</strong> • 
+              Crop: <strong id="dash-farmer-crop" style="color: #fff;">Tomato (Flowering Stage)</strong>
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-secondary btn-sm" id="btn-re-onboard">⚙️ Edit Profile</button>
+            <button class="btn btn-primary btn-sm" id="btn-dash-scan-now">📷 Scan Leaf Disease</button>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          
+          <!-- Farm Resilience Score -->
+          <div class="card col-span-4">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">🛡️</span>
+                <h3>Farm Resilience</h3>
+              </div>
+              <span class="badge badge-safe">SAFE</span>
+            </div>
+
+            <div class="resilience-score-widget">
+              <div class="score-circle" style="--score-pct: 78;">
+                <div class="score-circle-inner">
+                  <span class="score-number" id="dash-resilience-score">78</span>
+                  <span class="score-max">/ 100</span>
+                </div>
+              </div>
+
+              <div>
+                <strong style="font-size: 1.1rem; display: block; color: #fff;">Well Prepared</strong>
+                <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 0.25rem;">
+                  Your farm preparedness is strong. Follow irrigation advisory to boost score to 85+.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Crop Health Summary -->
+          <div class="card col-span-4">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">🌱</span>
+                <h3>Crop Health Status</h3>
+              </div>
+              <span class="badge badge-watch pulse-badge" id="badge-crop-health">WARNING</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text-sub); font-size: 0.9rem;">Primary Crop</span>
+                <strong style="color: #fff;" id="dash-crop-display">🍅 Tomato (2.5 Acres)</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text-sub); font-size: 0.9rem;">Growth Phase</span>
+                <span style="color: var(--primary-300); font-weight: 600;" id="dash-stage-display">🌸 Flowering Stage</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text-sub); font-size: 0.9rem;">Loss Prevented Risk</span>
+                <strong style="color: var(--accent-gold);" id="dash-risk-prevented">₹18,500 Prev.</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Weather Snapshot -->
+          <div class="card col-span-4">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">🌦️</span>
+                <h3>Field Weather</h3>
+              </div>
+              <span class="badge badge-safe">LIVE</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div style="background: rgba(0,0,0,0.2); padding: 0.6rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">TEMP</span>
+                <strong style="font-size: 1.25rem; color: #fff;" id="dash-temp">36°C</strong>
+              </div>
+              <div style="background: rgba(0,0,0,0.2); padding: 0.6rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">HUMIDITY</span>
+                <strong style="font-size: 1.25rem; color: var(--primary-300);" id="dash-humidity">84%</strong>
+              </div>
+              <div style="background: rgba(0,0,0,0.2); padding: 0.6rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">RAIN PROB</span>
+                <strong style="font-size: 1.25rem; color: var(--accent-sky);" id="dash-rain-prob">78% (8h)</strong>
+              </div>
+              <div style="background: rgba(0,0,0,0.2); padding: 0.6rem; border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">WIND</span>
+                <strong style="font-size: 1.25rem; color: #fff;" id="dash-wind">14 km/h</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Smart Irrigation Advisor Banner -->
+          <div class="col-span-12">
+            <div class="irrigation-decision-banner">
+              <div style="display: flex; align-items: center; gap: 1.25rem;">
+                <span style="font-size: 2.5rem;">💧</span>
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 800; color: #fff;">SMART IRRIGATION ADVISOR: SHOULD I WATER TODAY?</h3>
+                  <p style="font-size: 0.95rem; color: #e0f2fe; margin-top: 0.25rem;" id="irrigation-reasoning-text">
+                    <strong>DO NOT WATER TODAY.</strong> High rainfall (78% probability) is expected tonight within 8 hours. 
+                    Waiting saves water, prevents fertilizer runoff, and stops soil waterlogging.
+                  </p>
+                </div>
+              </div>
+
+              <div style="text-align: right; flex-shrink: 0;">
+                <div class="decision-pill no-water" id="irrigation-decision-pill">DONT WATER TODAY</div>
+                <span style="font-size: 0.8rem; color: var(--primary-300); display: block; margin-top: 0.4rem;" id="water-saved-est">
+                  Estimated Water Saved: <strong>~14,000 Liters</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Climate Risk Radar Grid -->
+          <div class="card col-span-8">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">📡</span>
+                <h3>Climate Risk Radar (48-Hour Projection)</h3>
+              </div>
+              <span class="badge badge-warning">2 RISKS WATCHED</span>
+            </div>
+
+            <div class="risk-radar-grid">
+              <div class="risk-card">
+                <div class="risk-card-header">
+                  <span style="font-size: 1.4rem;">🌧️</span>
+                  <span class="badge badge-critical">CRITICAL</span>
+                </div>
+                <strong style="font-size: 0.95rem; color: #fff;">Heavy Rainfall</strong>
+                <p style="font-size: 0.785rem; color: var(--text-sub); margin-top: 0.35rem;">78% Prob in 8h. Risk of waterlogging & root damage.</p>
+                <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--primary-300); font-weight: 700;">Action: Clear drainage channels</div>
+              </div>
+
+              <div class="risk-card">
+                <div class="risk-card-header">
+                  <span style="font-size: 1.4rem;">🦠</span>
+                  <span class="badge badge-warning">WARNING</span>
+                </div>
+                <strong style="font-size: 0.95rem; color: #fff;">Fungal Risk</strong>
+                <p style="font-size: 0.785rem; color: var(--text-sub); margin-top: 0.35rem;">High humidity + rain triggers tomato early blight spores.</p>
+                <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700;">Action: Inspect leaf undersides</div>
+              </div>
+
+              <div class="risk-card">
+                <div class="risk-card-header">
+                  <span style="font-size: 1.4rem;">☀️</span>
+                  <span class="badge badge-watch">WATCH</span>
+                </div>
+                <strong style="font-size: 0.95rem; color: #fff;">Heat Stress</strong>
+                <p style="font-size: 0.785rem; color: var(--text-sub); margin-top: 0.35rem;">36°C afternoon peak. Mild leaf transpiration stress.</p>
+                <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">Action: Mulch soil base</div>
+              </div>
+
+              <div class="risk-card">
+                <div class="risk-card-header">
+                  <span style="font-size: 1.4rem;">💨</span>
+                  <span class="badge badge-safe">SAFE</span>
+                </div>
+                <strong style="font-size: 0.95rem; color: #fff;">Strong Wind</strong>
+                <p style="font-size: 0.785rem; color: var(--text-sub); margin-top: 0.35rem;">14 km/h steady breeze. No risk to flowering branches.</p>
+                <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--primary-300); font-weight: 700;">Action: No action needed</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Farm Journey & Memory -->
+          <div class="card col-span-4">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">📜</span>
+                <h3>Farm Memory & History</h3>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.85rem;" id="dash-history-list">
+              <div style="background: rgba(255,255,255,0.04); padding: 0.75rem; border-radius: var(--radius-md); border-left: 3px solid var(--primary-400);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--primary-300);">
+                  <span>Today 11:20 AM</span>
+                  <span>AI Advisory</span>
+                </div>
+                <p style="font-size: 0.85rem; color: #fff; margin-top: 0.25rem;">Irrigation delayed due to 78% rainfall forecast.</p>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.04); padding: 0.75rem; border-radius: var(--radius-md); border-left: 3px solid var(--accent-amber);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--accent-gold);">
+                  <span>3 Days Ago</span>
+                  <span>Scan Result</span>
+                </div>
+                <p style="font-size: 0.85rem; color: #fff; margin-top: 0.25rem;">Early Blight spots identified (82% confidence).</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ===================================================================
+           VIEW 4: AI CROP DISEASE DETECTOR ("SCAN MY CROP")
+           =================================================================== -->
+      <section id="view-scanner" class="view-section">
+        <div style="margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800;">Scan My Crop — AI Disease Detector 📷</h1>
+          <p style="color: var(--primary-300);">Upload a leaf photo or pick a sample preset to detect diseases instantly.</p>
+        </div>
+
+        <div class="scanner-container">
+          
+          <!-- Left Scanner Panel -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">📷</span>
+                <h3>Leaf Image Input</h3>
+              </div>
+              <button class="btn btn-secondary btn-sm" id="btn-camera-trigger">📷 Open Camera</button>
+            </div>
+
+            <!-- Upload Dropzone -->
+            <div class="dropzone-box" id="dropzone-area">
+              <input type="file" id="file-input-leaf" accept="image/*" style="display: none;">
+              <span style="font-size: 3rem; display: block; margin-bottom: 0.5rem;">🌿</span>
+              <strong style="font-size: 1.1rem; color: #fff; display: block;">Drag & Drop Leaf Photo Here</strong>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">or click to browse from smartphone gallery</p>
+            </div>
+
+            <!-- Animated Canvas Preview Container -->
+            <div class="scanner-canvas-wrapper" id="scanner-wrapper">
+              <canvas id="scanner-canvas" width="400" height="300"></canvas>
+              <div class="scan-line" id="scan-line"></div>
+            </div>
+
+            <!-- Preset Sample Thumbnails for Demo -->
+            <div class="preset-leaves-bar">
+              <label class="form-label" style="font-size: 0.85rem;">Or Pick Hackathon Sample Leaf:</label>
+              <div class="preset-thumbs">
+                <div class="thumb-item selected" data-preset="tomato-early-blight" title="Tomato Early Blight">
+                  <svg width="100%" height="100%" viewBox="0 0 100 100">
+                    <rect width="100" height="100" fill="#15803d"/>
+                    <path d="M 50,10 Q 80,40 50,90 Q 20,40 50,10" fill="#166534"/>
+                    <circle cx="45" cy="35" r="8" fill="#78350f" opacity="0.8"/>
+                    <circle cx="55" cy="55" r="12" fill="#78350f" opacity="0.9"/>
+                  </svg>
+                </div>
+                <div class="thumb-item" data-preset="paddy-blight" title="Paddy Bacterial Blight">
+                  <svg width="100%" height="100%" viewBox="0 0 100 100">
+                    <rect width="100" height="100" fill="#15803d"/>
+                    <path d="M 50,5 Q 70,50 50,95 Q 30,50 50,5" fill="#4d7c0f"/>
+                    <path d="M 45,20 L 55,80" stroke="#ca8a04" stroke-width="6"/>
+                  </svg>
+                </div>
+                <div class="thumb-item" data-preset="cotton-curl" title="Cotton Leaf Curl">
+                  <svg width="100%" height="100%" viewBox="0 0 100 100">
+                    <rect width="100" height="100" fill="#15803d"/>
+                    <path d="M 20,50 Q 50,10 80,50 Q 50,90 20,50" fill="#15803d"/>
+                    <circle cx="50" cy="50" r="14" fill="#a16207" opacity="0.8"/>
+                  </svg>
+                </div>
+                <div class="thumb-item" data-preset="healthy-leaf" title="Healthy Tomato Leaf">
+                  <svg width="100%" height="100%" viewBox="0 0 100 100">
+                    <rect width="100" height="100" fill="#15803d"/>
+                    <path d="M 50,10 Q 85,45 50,90 Q 15,45 50,10" fill="#22c55e"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" id="btn-run-ai-scan" style="width: 100%; margin-top: 1.25rem;">
+              🧠 Run AI Neural Diagnostic Scan
+            </button>
+          </div>
+
+          <!-- Right Diagnostic Report Panel -->
+          <div class="card diagnostic-report">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">📋</span>
+                <h3>AI Diagnostic Result</h3>
+              </div>
+              <span class="badge badge-warning" id="scan-confidence-badge">87% CONFIDENCE</span>
+            </div>
+
+            <div id="scan-result-body">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <h2 style="font-size: 1.6rem; color: #fff;" id="diag-disease-name">Tomato Early Blight</h2>
+                  <span style="color: var(--primary-300); font-weight: 600; font-size: 0.9rem;" id="diag-pathogen-type">Fungal Infection (Alternaria solani)</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-audio-diag">
+                  🔊 Listen Result
+                </button>
+              </div>
+
+              <!-- Simple Language Toggle -->
+              <div style="background: rgba(255,255,255,0.05); padding: 0.75rem 1rem; border-radius: var(--radius-md); margin: 1rem 0;">
+                <strong style="color: var(--accent-gold); display: block; font-size: 0.9rem;">What happened? (Simple Language):</strong>
+                <p style="font-size: 0.95rem; color: #fff; margin-top: 0.25rem;" id="diag-simple-text">
+                  Dark concentric rings with yellow halos found on lower leaves. High humidity (84%) and rainfall forecast are accelerating spore growth.
+                </p>
+              </div>
+
+              <!-- 4-Step Field Action Plan -->
+              <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.75rem;">Action Plan (What to do now):</h4>
+              <div class="action-plan-list">
+                <div class="action-step-item">
+                  <div class="action-step-num">1</div>
+                  <div>
+                    <strong style="color: #fff; font-size: 0.9rem;">Immediate Action</strong>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Prune infected lower leaves immediately and dispose of away from field.</p>
+                  </div>
+                </div>
+
+                <div class="action-step-item">
+                  <div class="action-step-num">2</div>
+                  <div>
+                    <strong style="color: #fff; font-size: 0.9rem;">Field Management</strong>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Avoid overhead sprinkler watering; keep leaf canopy dry during high humidity.</p>
+                  </div>
+                </div>
+
+                <div class="action-step-item">
+                  <div class="action-step-num">3</div>
+                  <div>
+                    <strong style="color: #fff; font-size: 0.9rem;">Preventive Action</strong>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Improve plant spacing and clear drainage channels before tonight's rain.</p>
+                  </div>
+                </div>
+
+                <div class="action-step-item">
+                  <div class="action-step-num">4</div>
+                  <div>
+                    <strong style="color: #fff; font-size: 0.9rem;">Monitoring Schedule</strong>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Re-inspect field after 48 hours. If spreading continues, consult local expert.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <span style="font-size: 0.75rem; color: var(--text-muted);">AI recommendation • Verify with local agronomist</span>
+                <button class="btn btn-secondary btn-sm" id="btn-escalate-expert">
+                  👨‍🌾 Escalate to Expert
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ===================================================================
+           VIEW 5: CLIMATE INTELLIGENCE ENGINE & RISK RADAR
+           =================================================================== -->
+      <section id="view-climate" class="view-section">
+        <div style="margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800;">Climate Intelligence & "What-If" Simulator 🌦️</h1>
+          <p style="color: var(--primary-300);">Translate raw weather signals into agricultural resilience decisions.</p>
+        </div>
+
+        <div class="simulator-layout">
+          <!-- Interactive Simulator Sliders -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">🎛️</span>
+                <h3>"What If?" Climate Stress Simulator</h3>
+              </div>
+              <span class="badge badge-safe">SIMULATOR</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 1.5rem;">
+              Adjust climate parameters below to simulate how weather extremes impact your crop yield, water demand, and disease risks.
+            </p>
+
+            <div class="range-slider-group">
+              <div class="range-slider-header">
+                <span>Rainfall Shift</span>
+                <strong id="sim-rain-val" style="color: var(--primary-400);">-20% (Drought Risk)</strong>
+              </div>
+              <input type="range" id="slider-rain" class="slider-custom" min="-50" max="50" value="-20">
+            </div>
+
+            <div class="range-slider-group">
+              <div class="range-slider-header">
+                <span>Temperature Increase</span>
+                <strong id="sim-temp-val" style="color: var(--accent-gold);">+3.0°C Heatwave</strong>
+              </div>
+              <input type="range" id="slider-temp" class="slider-custom" min="0" max="6" step="0.5" value="3.0">
+            </div>
+
+            <div class="range-slider-group">
+              <div class="range-slider-header">
+                <span>Monsoon Delay</span>
+                <strong id="sim-delay-val" style="color: var(--accent-sky);">14 Days Delayed</strong>
+              </div>
+              <input type="range" id="slider-delay" class="slider-custom" min="0" max="30" value="14">
+            </div>
+
+            <button class="btn btn-secondary" id="btn-reset-sim" style="width: 100%;">
+              🔄 Reset to Current Field Weather
+            </button>
+          </div>
+
+          <!-- Simulator Impact Results -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">📊</span>
+                <h3>Simulated Yield & Resilience Impact</h3>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+              <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">EXPECTED CROP YIELD</span>
+                <strong style="font-size: 1.75rem; color: #f87171;" id="sim-res-yield">-18% Yield Loss</strong>
+              </div>
+
+              <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">IRRIGATION WATER NEED</span>
+                <strong style="font-size: 1.75rem; color: var(--accent-sky);" id="sim-res-water">+25% Demand</strong>
+              </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: var(--radius-md); border-left: 4px solid var(--accent-gold);">
+              <strong style="color: var(--accent-gold); display: block; font-size: 0.95rem;">Recommended Climate Resilience Action:</strong>
+              <p style="font-size: 0.9rem; color: #fff; margin-top: 0.35rem;" id="sim-res-action">
+                Under -20% rainfall and +3°C temp, switch to drip irrigation immediately and mulch soil with crop residue to preserve soil moisture.
+              </p>
+            </div>
+
+            <div style="margin-top: 1rem; background: rgba(0,0,0,0.2); padding: 0.85rem; border-radius: var(--radius-md);">
+              <strong style="font-size: 0.85rem; color: var(--primary-300); display: block;">Alternative Climate-Resilient Crop Option:</strong>
+              <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 0.25rem;" id="sim-res-alt-crop">
+                Consider switching next cycle to Pearl Millet (Bajra) or Sorghum, which require 40% less water under heat stress.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===================================================================
+           VIEW 6: FARMER VOICE ASSISTANT & AI FARM CHAT
+           =================================================================== -->
+      <section id="view-assistant" class="view-section">
+        <div style="margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800;">Farmer Voice Assistant & AI Chat 🎤</h1>
+          <p style="color: var(--primary-300);">Speak or type your question in your native language for instant field advisory.</p>
+        </div>
+
+        <div class="voice-chat-layout">
+          
+          <!-- Voice Interaction Card -->
+          <div class="card voice-assistant-card">
+            <h2 style="font-size: 1.4rem; color: #fff;">Talk to KrishiRakshak 🎤</h2>
+            <p style="font-size: 0.9rem; color: var(--text-sub); margin-top: 0.25rem;">
+              Press microphone button and speak in your language
+            </p>
+
+            <div class="mic-button-wrapper">
+              <button id="btn-mic-record" class="btn-mic" aria-label="Start Voice Recording">🎤</button>
+            </div>
+
+            <span style="font-size: 0.85rem; color: var(--primary-300);" id="mic-status-label">Tap Mic to Speak</span>
+
+            <div class="voice-waves" id="voice-waves-container" style="visibility: hidden;">
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+            </div>
+
+            <div style="margin-top: 1.5rem; width: 100%; text-align: left;">
+              <label class="form-label" style="font-size: 0.8rem;">Or Click Quick Sample Voice Prompt:</label>
+              <div class="prompt-chips">
+                <span class="chip" data-query="Should I water my tomato crop today?">💧 Should I water tomato today?</span>
+                <span class="chip" data-query="నా వరి పంటకు నీళ్లు పోయాలా?">🇮🇳 నా వరి పంటకు నీళ్లు పోయాలా?</span>
+                <span class="chip" data-query="Why are my tomato leaves turning yellow?">🍃 Why leaves turning yellow?</span>
+                <span class="chip" data-query="Is heavy rain coming tomorrow?">🌧️ Is rain coming tomorrow?</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Chat Box -->
+          <div class="card chat-box">
+            <div class="card-header" style="border-bottom: 1px solid var(--card-border); padding-bottom: 0.75rem; margin-bottom: 0;">
+              <div class="card-title">
+                <span class="icon">💬</span>
+                <h3>Ask Krishi AI Assistant</h3>
+              </div>
+              <span class="badge badge-safe">CONTEXT-AWARE</span>
+            </div>
+
+            <div class="chat-messages-scroll" id="chat-messages">
+              <div class="chat-bubble bot">
+                <strong>🌾 Krishi AI:</strong> Hello Ravi! I am monitoring your Tomato crop in Guntur. Today humidity is 84% and rain probability is 78%. How can I help your field today?
+              </div>
+            </div>
+
+            <div class="chat-input-bar">
+              <input type="text" id="chat-input-text" class="form-input" placeholder="Type your farming question..." style="border-radius: var(--radius-md);">
+              <button class="btn btn-primary" id="btn-send-chat">Send</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- ===================================================================
+           VIEW 7: COMMUNITY MAP & ADMIN DASHBOARD
+           =================================================================== -->
+      <section id="view-community" class="view-section">
+        <div style="margin-bottom: 1.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800;">Community Outbreak Map & Agronomist Dashboard 🗺️</h1>
+          <p style="color: var(--primary-300);">Regional crop disease cluster tracking and expert escalation management.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Outbreak Map Card -->
+          <div class="card col-span-8">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">🗺️</span>
+                <h3>Nearby Regional Farm Alert Map (Guntur Cluster)</h3>
+              </div>
+              <span class="badge badge-warning">7 OUTBREAKS DETECTED</span>
+            </div>
+
+            <div class="map-canvas-container">
+              <canvas id="community-map-canvas" width="700" height="380"></canvas>
+            </div>
+          </div>
+
+          <!-- Agronomist Escalation Queue -->
+          <div class="card col-span-4">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="icon">👨‍🌾</span>
+                <h3>Agronomist Escalations</h3>
+              </div>
+              <span class="badge badge-critical">1 PENDING</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;" id="escalation-queue-list">
+              <div style="background: rgba(255,255,255,0.04); padding: 0.85rem; border-radius: var(--radius-md); border-left: 4px solid var(--accent-gold);">
+                <div style="display: flex; justify-content: space-between;">
+                  <strong style="color: #fff; font-size: 0.9rem;">Ticket #KVK-892</strong>
+                  <span style="font-size: 0.75rem; color: var(--accent-gold);">Pending Review</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 0.25rem;">
+                  Farmer: Ravi Kumar (Tomato)<br>
+                  Issue: Low Confidence Early Blight (74%)<br>
+                  Telemetry: 84% Humid, Rain 78%
+                </p>
+                <button class="btn btn-secondary btn-sm" style="margin-top: 0.5rem; width: 100%; font-size: 0.75rem;">
+                  👁️ Inspect Escalation Case
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      <p><strong>KrishiRakshak AI</strong> — AI-Powered Climate & Crop Guardian • Built for Global AgTech Resilience Hackathon</p>
+      <p style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--primary-300);">Empowering farmers with simple, actionable, voice-enabled agricultural intelligence.</p>
+    </footer>
+  </div>
+
+
+  <!-- =======================================================================
+       EXPERT ESCALATION MODAL
+       ======================================================================= -->
+  <div id="modal-escalation" class="modal-overlay">
+    <div class="modal-card">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="icon">👨‍🌾</span>
+          <h3>Escalate Case to KVK Agronomist</h3>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="btn-close-modal">✖</button>
+      </div>
+
+      <p style="font-size: 0.875rem; color: var(--text-sub); margin-bottom: 1.25rem;">
+        Your crop image, field location (Guntur), current weather telemetry, and AI diagnosis will be dispatched to Krishi Vigyan Kendra (KVK) extension officers.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label" for="escalate-notes">Add Specific Notes for Expert</label>
+        <textarea id="escalate-notes" class="form-input" rows="3" placeholder="Describe symptoms or recent spray details..."></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
+        <button class="btn btn-secondary" id="btn-cancel-modal">Cancel</button>
+        <button class="btn btn-primary" id="btn-submit-escalate">Submit Escalation Ticket</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =======================================================================
+       HACKATHON 2-MINUTE WOW DEMO TOUR BANNER
+       ======================================================================= -->
+  <div id="tour-banner" class="tour-banner">
+    <span style="font-size: 2rem;">⚡</span>
+    <div style="flex: 1;">
+      <strong style="font-size: 0.95rem; color: var(--accent-gold); display: block;" id="tour-step-title">Hackathon Guided Tour Active</strong>
+      <p style="font-size: 0.825rem; color: #fff; margin-top: 0.15rem;" id="tour-step-desc">
+        Step 1 of 13: Auto-detecting location & pre-loading Ravi's Tomato field context.
+      </p>
+    </div>
+    <button class="btn btn-demo btn-sm" id="tour-btn-next">Next Step ➔</button>
+  </div>
+
+
+  <script src="app.js"></script>
+</body>
+</html>
